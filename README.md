@@ -1,39 +1,44 @@
-#  charity-reunion 
+# charity-reunion
 
 #### 介绍
-{**以下是 Gitee 平台说明，您可以替换此简介**
-Gitee 是 OSCHINA 推出的基于 Git 的代码托管平台（同时支持 SVN）。专为开发者提供稳定、高效、安全的云端软件开发协作平台
-无论是个人、团队、或是企业，都能够用 Gitee 实现代码托管、项目管理、协作开发。企业项目请看 [https://gitee.com/enterprises](https://gitee.com/enterprises)}
+
+`charity-reunion` 是一个慈善 reunion（慈善 reunion）项目，旨在为慈善活动提供一个平台或工具。
+
+> **注意**: 当前仓库内容较少，主要包含 README 文件。如需了解更多项目详情，请参考后续更新或查看源代码。
 
 #### 软件架构
-软件架构说明
 
+目前项目仍在初始化阶段，架构信息将在后续版本中补充。
 
 #### 安装教程
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+1. 克隆仓库到本地
+```bash
+git clone https://gitee.com/la-ziyang/charity-reunion.git
+```
+
+2. 进入项目目录
+```bash
+cd charity-reunion
+```
+
+3. 根据项目实际技术栈进行环境配置（待更新）
 
 #### 使用说明
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+项目功能说明将在代码完善后补充。
 
 #### 参与贡献
 
-1.  Fork 本仓库
-2.  新建 Feat_xxx 分支
-3.  提交代码
-4.  新建 Pull Request
+1. Fork 本仓库
+2. 新建 Feat_xxx 分支
+3. 提交代码
+4. 新建 Pull Request
 
+#### 许可证
 
-#### 特技
+本项目具体许可证信息请查看 LICENSE 文件。
 
-1.  使用 Readme\_XXX.md 来支持不同的语言，例如 Readme\_en.md, Readme\_zh.md
-2.  Gitee 官方博客 [blog.gitee.com](https://blog.gitee.com)
-3.  你可以 [https://gitee.com/explore](https://gitee.com/explore) 这个地址来了解 Gitee 上的优秀开源项目
-4.  [GVP](https://gitee.com/gvp) 全称是 Gitee 最有价值开源项目，是综合评定出的优秀开源项目
-5.  Gitee 官方提供的使用手册 [https://gitee.com/help](https://gitee.com/help)
-6.  Gitee 封面人物是一档用来展示 Gitee 会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
+---
+
+*如果您是项目开发者，请更新本 README 以提供更详细的项目信息。*
