@@ -35,12 +35,19 @@ mysql -uroot -p < sql\init.sql
 
 ### 2. 启动后端(端口 8081)
 
-- 修改 `server/src/main/resources/application.yml` 中的 MySQL 密码:
+- 数据库账号密码与 JWT 密钥支持环境变量覆盖,不设变量时使用演示默认值(开箱即用,无需改 `application.yml`):
 
-```yaml
-spring:
-  datasource:
-    password: 你的root密码
+| 环境变量 | 演示默认值 | 说明 |
+|---|---|---|
+| `DB_USERNAME` | `root` | MySQL 用户名 |
+| `DB_PASSWORD` | `root` | MySQL 密码,本机 root 密码不同时设置即可 |
+| `JWT_SECRET` | 演示密钥 | 生产环境务必换成长度 >= 32 字节的随机串 |
+
+PowerShell 示例:
+
+```powershell
+$env:DB_PASSWORD = "你的root密码"
+mvn spring-boot:run
 ```
 
 - 启动:
@@ -122,11 +129,15 @@ npm run dev
 
 1. 执行 `sql/init.sql` → 2. `mvn spring-boot:run` → 3. `cd web; npm install; npm run dev` → 4. 用 `s_zhang/123456` 登录体验档案/线索/亲缘雷达/问答,用 `admin/admin123` 登录后台看统计图表与审核流程。亲缘雷达为纯本地算法,无需任何外部 API Key 即可完整演示。
 
-## 八、常见问题
+## 八、开源许可
+
+本项目采用 **Academic Free License v3.0 (AFL-3.0)** 协议开源,完整条款见仓库根目录 [LICENSE](LICENSE) 文件。AFL-3.0 为 OSI 认证的自由开源许可证,允许使用、修改、分发及商用,需保留版权声明与许可证文本;含明示专利授权条款,且允许将本项目代码集成到 GPL-2.0-or-later 或 GPL-3.0-only 许可的作品中。
+
+## 九、常见问题
 
 - **亲缘雷达命中少**:属正常现象,候选得分阈值 20 分;可放宽省份、减少体貌标签后重试,特征向量完整度越高结果越准。
 - **首页轮播图不显示**:确认已执行 `sql/init.sql` 且后端 8081 已启动(图片来自 `server/upload/` 目录)。
 - **前端提示"网络错误"**:确认后端 8081 已启动。
 - **数据库中文乱码**:确认建库字符集为 `utf8mb4`(init.sql 已指定)。
 - **演示密码说明**:演示数据使用 `{noop}` 前缀明文存储便于造数;线上注册的新密码自动使用 BCrypt 加密。生产部署前请把演示账号密码更新一遍。
-- **JWT 密钥**:上线前修改 `application.yml` 中 `jwt.secret`。
+- **JWT 密钥**:上线前通过环境变量 `JWT_SECRET` 更换演示密钥。
