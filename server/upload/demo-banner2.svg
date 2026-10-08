@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="360" viewBox="0 0 1200 360">
+  <defs>
+    <linearGradient id="g2" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#2b6cb0"/>
+      <stop offset="100%" stop-color="#4fd1c5"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="360" fill="url(#g2)"/>
+  <circle cx="150" cy="90" r="130" fill="#ffffff" opacity="0.10"/>
+  <circle cx="1080" cy="290" r="150" fill="#ffffff" opacity="0.08"/>
+  <text x="600" y="160" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="52" font-weight="bold" fill="#ffffff">科学寻亲:黄金72小时</text>
+  <text x="600" y="225" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="26" fill="#ffffff" opacity="0.92">亲人走失立即报警 · 采血入库 · 平台扩散 —— 点击阅读寻亲指南</text>
+</svg>

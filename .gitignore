@@ -1,0 +1,19 @@
+# 依赖与构建产物
+web/node_modules/
+web/dist/
+server/target/
+
+# 日志
+*.log
+
+# 数据库改名前的历史备份
+sql/_rename-backup/
+
+# 与项目无关的本地工具/设计工作目录
+.uupm-src/
+oil-ui/
+design/
+
+# 用户上传的文件不随开源公开(保留演示轮播图)
+server/upload/*
+!server/upload/demo-banner*.svg

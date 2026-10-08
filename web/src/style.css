@@ -1,0 +1,155 @@
+/* ============ 公益寻亲平台 · 主题系统 v3「团圆·家书」============
+   方向C：把寻人写成一封寄得到的家书。
+   色彩身份：暖陶土(赤陶) · 米白纸张 · 松绿(重逢) · 灯火金(回家灯)。
+   字体身份：人文宋体做展示级标题，系统无衬线做正文，沉稳不花哨。 */
+:root {
+  /* —— 品牌色（沿用旧变量名，值改为暖色系，历史组件自动级联）—— */
+  --brand: #b5573b;            /* 主陶土赤 */
+  --brand-deep: #8f3f2a;       /* 深赤陶 */
+  --brand-violet: #6f3320;     /* 旧守望紫 → 深赭褐 */
+  --brand-amber: #d98a4f;      /* 晨曦暖橙 */
+  --brand-gold: #c98a3d;       /* 灯火金 */
+  --brand-teal: #3f6152;       /* 旧重逢青 → 松绿 */
+  --brand-pine: #3f6152;       /* 松绿·重逢 */
+  --clay: #b5573b;
+  --clay-soft: #d98a5f;
+  --pine: #3f6152;
+  --ink: #3a2f28;              /* 主文字：暖褐墨 */
+  --ink-soft: #7d6b5c;         /* 次级文字 */
+  --cream: #f6efe3;            /* 页面米白 */
+  --cream-2: #efe4d2;          /* 分隔/浅底 */
+  --paper-line: #e4d8c4;       /* 纸纹描边 */
+
+  /* —— 渐变（编辑部风只在少数大标题上轻用，主体靠纯色）—— */
+  --grad-hero: linear-gradient(120deg, #c9784f 0%, #b5573b 46%, #8f3f2a 100%);
+  --grad-sunrise: linear-gradient(120deg, #e0a06a 0%, #b5573b 100%);
+  --grad-lamp: linear-gradient(180deg, #ffe9c0 0%, #f0b46a 55%, #d98a4f 100%);
+  --grad-page: linear-gradient(180deg, #f6efe3 0%, #f2e8d9 60%, #efe4d2 100%);
+
+  --card-shadow: 0 2px 14px rgba(120, 80, 50, 0.10);
+  --card-shadow-hover: 0 12px 32px rgba(120, 80, 50, 0.18);
+
+  /* —— 字体族 —— */
+  --font-display: 'Songti SC', 'STSong', 'Noto Serif SC', 'Source Han Serif SC', 'SimSun', serif;
+  --font-body: 'PingFang SC', 'Microsoft YaHei', 'Hiragino Sans GB', sans-serif;
+
+  /* —— Element Plus 主色 → 陶土赤 —— */
+  --el-color-primary: #b5573b;
+  --el-color-primary-light-3: #c8795f;
+  --el-color-primary-light-5: #d69b86;
+  --el-color-primary-light-7: #e4bdae;
+  --el-color-primary-light-8: #ecd0c4;
+  --el-color-primary-light-9: #f3e3da;
+  --el-color-primary-dark-2: #93452f;
+  --el-color-success: #3f6152;
+    /* —— Element Plus 危险色 → 暖砖红(保留警示语义,去掉冷粉) —— */
+    --el-color-danger: #b8442c;
+    --el-color-danger-light-3: #c86a58;
+    --el-color-danger-light-5: #d4897b;
+    --el-color-danger-light-7: #e0a89e;
+    --el-color-danger-light-8: #e7c0b8;
+    --el-color-danger-light-9: #f4e4e0;
+    --el-color-danger-dark-2: #933623;
+    --el-color-error: #b8442c;
+    --el-color-error-light-9: #f4e4e0;
+    /* —— Element Plus 中性面/边框/禁用态 → 暖米白(消除冷灰蓝) —— */
+    --el-fill-color-light: #f0e8db;
+    --el-fill-color-lighter: #f6efe3;
+    --el-fill-color-blank: #fffdf8;
+    --el-disabled-bg-color: #f4ece0;
+    --el-disabled-border-color: #e7dbc7;
+    --el-border-color-light: #e4d8c4;
+    --el-border-color-lighter: #ece0cd;
+  --el-border-radius-base: 6px;
+}
+
+/* 下拉菜单图标跟随暖色(dropdown 传送到 body,scoped 不生效,故置全局) */
+.el-dropdown-menu__item .el-icon { color: var(--brand); margin-right: 6px; }
+
+html, body {
+  margin: 0;
+  min-height: 100%;
+  background: var(--grad-page);
+  background-attachment: fixed;
+  font-family: var(--font-body);
+  color: var(--ink);
+}
+
+/* 标题统一走人文宋体，形成杂志感 */
+h1, h2, h3, .el-dialog__title { font-family: var(--font-display); letter-spacing: .5px; }
+
+/* 展示级宋体工具类：给大标题、标语用 */
+.display { font-family: var(--font-display); font-weight: 600; letter-spacing: 1px; color: var(--ink); }
+.eyebrow { font-size: 12px; letter-spacing: 5px; color: var(--pine); text-transform: none; }
+
+/* 全局滚动条美化（暖褐） */
+::-webkit-scrollbar { width: 9px; height: 9px; }
+::-webkit-scrollbar-thumb { background: rgba(181, 87, 59, 0.32); border-radius: 5px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(143, 63, 42, 0.6); }
+::-webkit-scrollbar-track { background: transparent; }
+
+.page-card {
+  background: #fffdf8;
+  border: 1px solid var(--paper-line);
+  border-radius: 10px;
+  padding: 16px;
+  box-shadow: var(--card-shadow);
+  transition: box-shadow 0.3s, transform 0.3s;
+}
+.page-card:hover {
+  box-shadow: var(--card-shadow-hover);
+}
+
+/* 通用:hover 抬升卡片 */
+.lift {
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.lift:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--card-shadow-hover);
+}
+
+/* 陶土赤文字标题（旧“渐变描字”改为沉稳单色，更像社论） */
+.grad-text {
+  font-family: var(--font-display);
+  color: var(--brand-deep);
+  letter-spacing: 1px;
+}
+
+/* Element Plus 主按钮 → 陶土赤 */
+.el-button--primary {
+  --el-button-bg-color: var(--brand);
+  --el-button-border-color: var(--brand);
+  --el-button-hover-bg-color: var(--brand-deep);
+  --el-button-hover-border-color: var(--brand-deep);
+}
+
+/* 淡入动画工具类 */
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.fade-up { animation: fade-up 0.5s ease both; }
+
+/* ============ 无障碍：键盘焦点可见环 ============ */
+/* 卡片类自定义控件与链接获得键盘焦点时显示暖色描边；不改变鼠标点击观感 */
+:focus-visible {
+  outline: 3px solid var(--brand);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+[role="button"][tabindex] { cursor: pointer; }
+
+/* ============ 无障碍：尊重"减少动态效果"偏好 ============ */
+/* 站内有 blink/pulse/radar-spin/dove-fly/float-up 等循环动画与轮播，
+   用户开启系统"减少动画"时统一降级为近乎无动画，仅保留瞬时状态。 */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

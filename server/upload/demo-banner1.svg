@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="360" viewBox="0 0 1200 360">
+  <defs>
+    <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#e05a6d"/>
+      <stop offset="100%" stop-color="#f7b32b"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="360" fill="url(#g1)"/>
+  <circle cx="1050" cy="80" r="140" fill="#ffffff" opacity="0.12"/>
+  <circle cx="120" cy="300" r="100" fill="#ffffff" opacity="0.10"/>
+  <text x="600" y="160" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="56" font-weight="bold" fill="#ffffff">团圆行动 · 让爱回家</text>
+  <text x="600" y="225" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="26" fill="#ffffff" opacity="0.9">纯公益寻亲平台 · 免费发布 · 志愿者协助核实</text>
+</svg>
