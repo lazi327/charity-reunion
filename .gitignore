@@ -6,6 +6,9 @@ server/target/
 # 日志
 *.log
 
+# 本地环境变量(只提交 .env.example)
+.env
+
 # 数据库改名前的历史备份
 sql/_rename-backup/
 

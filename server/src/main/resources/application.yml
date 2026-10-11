@@ -1,12 +1,13 @@
 server:
-  port: 8081
+  # Railway 等平台通过 PORT 分配端口
+  port: ${PORT:8081}
 
 spring:
   application:
     name: reunion
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/cf_reunion?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true
+    url: jdbc:mysql://${DB_HOST:localhost}:${DB_PORT:3306}/${DB_NAME:cf_reunion}?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true
     username: ${DB_USERNAME:root}
     password: ${DB_PASSWORD:root}
   servlet:
@@ -22,7 +23,7 @@ mybatis-plus:
       id-type: auto
 
 dating:
-  upload-dir: ./upload       # 头像/寻亲照片/轮播图存放目录(相对启动目录)
+  upload-dir: ${UPLOAD_DIR:./upload}   # 头像/寻亲照片/轮播图存放目录;挂 volume 时用 UPLOAD_DIR 指过去
 
 jwt:
   # 通过环境变量 JWT_SECRET 注入;生产环境务必更换;长度需 >= 32 字节

@@ -130,6 +130,7 @@ npm run dev
 │   │   └── controller/     寻亲者端 + 管理端 + 亲缘雷达接口
 │   └── upload/             图片上传目录(演示轮播图 SVG 在此)
 └── web/                    Vue3 前端(5173,已配置 /api 与 /upload 代理)
+    ├── server.mjs          生产环境静态托管 + /api /upload 反代(部署用,零依赖)
     └── src/
         ├── layouts/        寻亲者端顶栏布局 / 后台侧栏布局
         ├── views/          寻亲者端页面
@@ -142,11 +143,30 @@ npm run dev
 
 1. 执行 `sql/init.sql` → 2. `mvn spring-boot:run` → 3. `cd web; npm install; npm run dev` → 4. 用 `s_zhang/123456` 登录体验档案/线索/亲缘雷达/问答,用 `admin/admin123` 登录后台看统计图表与审核流程。亲缘雷达为纯本地算法,无需任何外部 API Key 即可完整演示。
 
-## 八、开源许可
+## 八、部署上线(以 Railway 为例)
+
+本仓库是 monorepo,构建清单分别在 `server/pom.xml` 与 `web/package.json`,**根目录没有任何构建清单**。平台若在根目录探测会直接报 `Railpack could not determine how to build the app` / `Script start.sh not found`,因此每个服务都要手动指定 Root Directory。
+
+| 服务 | Root Directory | 构建与启动 | 公网 |
+|---|---|---|---|
+| `mysql` | — | Railway 官方 MySQL 模板,建库后导入 `sql/init.sql` | 关 |
+| `server` | `server` | Maven 打包,启动命令 `java -jar target/reunion-server-1.0.0.jar` | 关 |
+| `web` | `web` | `npm ci && npm run build`,运行时执行 `npm start`(即 `node server.mjs`) | **开**,对外域名 |
+
+只有 `web` 开公网域名:`web/server.mjs` 托管 `dist` 并把 `/api`、`/upload` 反代到后端内网地址,所以前端接口与图片继续用相对路径,不需要 CORS,也不需要改前端代码。
+
+环境变量清单见 [.env.example](.env.example),要点:
+
+- `server` 的 `PORT` 由平台注入,`application.yml` 已写成 `${PORT:8081}`;`DB_HOST` / `DB_PORT` / `DB_NAME` 指向 MySQL 服务。
+- `web` 的 `API_TARGET` 填后端内网地址(Railway 形如 `http://<服务名>:8081`)。
+- `server` 的 `UPLOAD_DIR` 指向 volume 挂载路径(如 `/data/upload`,并在 Settings → Volumes 挂同一位置),否则每次重新部署,用户上传的头像与寻亲照片都会丢失。
+- 上线前更换 `JWT_SECRET` 为随机串,并把演示账号密码改一遍(见第十节)。
+
+## 九、开源许可
 
 本项目采用 **Academic Free License v3.0 (AFL-3.0)** 协议开源,完整条款见仓库根目录 [LICENSE](LICENSE) 文件。AFL-3.0 为 OSI 认证的自由开源许可证,允许使用、修改、分发及商用,需保留版权声明与许可证文本;含明示专利授权条款,且允许将本项目代码集成到 GPL-2.0-or-later 或 GPL-3.0-only 许可的作品中。
 
-## 九、常见问题
+## 十、常见问题
 
 - **亲缘雷达命中少**:属正常现象,候选得分阈值 20 分;可放宽省份、减少体貌标签后重试,特征向量完整度越高结果越准。
 - **首页轮播图不显示**:确认已执行 `sql/init.sql` 且后端 8081 已启动(图片来自 `server/upload/` 目录)。
