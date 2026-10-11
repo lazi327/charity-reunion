@@ -143,9 +143,11 @@ npm run dev
 
 1. 执行 `sql/init.sql` → 2. `mvn spring-boot:run` → 3. `cd web; npm install; npm run dev` → 4. 用 `s_zhang/123456` 登录体验档案/线索/亲缘雷达/问答,用 `admin/admin123` 登录后台看统计图表与审核流程。亲缘雷达为纯本地算法,无需任何外部 API Key 即可完整演示。
 
-## 八、部署上线(以 Railway 为例)
+## 八、部署上线
 
-本仓库是 monorepo,构建清单分别在 `server/pom.xml` 与 `web/package.json`,**根目录没有任何构建清单**。平台若在根目录探测会直接报 `Railpack could not determine how to build the app` / `Script start.sh not found`,因此每个服务都要手动指定 Root Directory。
+本仓库是 monorepo,构建清单分别在 `server/pom.xml` 与 `web/package.json`,**根目录没有任何构建清单**。平台若在根目录探测会直接报 `Railpack could not determine how to build the app` / `Script start.sh not found`,因此每个服务都要指定子目录。
+
+### 方案 A:Railway(三个服务)
 
 | 服务 | Root Directory | 构建与启动 | 公网 |
 |---|---|---|---|
@@ -161,6 +163,14 @@ npm run dev
 - `web` 的 `API_TARGET` 填后端内网地址(Railway 形如 `http://<服务名>:8081`)。
 - `server` 的 `UPLOAD_DIR` 指向 volume 挂载路径(如 `/data/upload`,并在 Settings → Volumes 挂同一位置),否则每次重新部署,用户上传的头像与寻亲照片都会丢失。
 - 上线前更换 `JWT_SECRET` 为随机串,并把演示账号密码改一遍(见第十节)。
+
+### 方案 B:Render(单容器单域名)
+
+根目录的 `Dockerfile` + `render.yaml` 已配好一条构建链:node 出 `dist` → Maven 把 `dist` 打进 jar 的 `static/` → JRE 运行。前端由 Spring Boot 直接托管,`/api` 与 `/upload` 天然同源,不需要反代、不需要 CORS、也不需要改前端代码。
+
+1. 在 TiDB Cloud 开一个 Serverless 集群(免费、MySQL 兼容),用它的 SQL Editor 或 mysql 客户端导入 `sql/init.sql`。
+2. Render → New → Blueprint → 选本仓库,按提示补 `DB_HOST` / `DB_USERNAME` / `DB_PASSWORD`(`DB_PORT=4000`、`DB_SSL_MODE=REQUIRED` 已写进 `render.yaml`,TiDB Serverless 强制 TLS)。
+3. 免费档只有 256MB / 0.1 CPU,Spring Boot 起不来或频繁 OOM 就升 starter($7/月);免费档不能挂持久磁盘,重启后用户上传的头像与照片会丢(仓库自带的演示轮播图会在容器启动时自动补种)。
 
 ## 九、开源许可
 

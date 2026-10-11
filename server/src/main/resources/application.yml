@@ -7,7 +7,8 @@ spring:
     name: reunion
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://${DB_HOST:localhost}:${DB_PORT:3306}/${DB_NAME:cf_reunion}?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true
+    # TiDB Cloud / 其他强制 TLS 的 MySQL 服务:设 DB_SSL_MODE=REQUIRED
+    url: jdbc:mysql://${DB_HOST:localhost}:${DB_PORT:3306}/${DB_NAME:cf_reunion}?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&sslMode=${DB_SSL_MODE:DISABLED}&allowPublicKeyRetrieval=true
     username: ${DB_USERNAME:root}
     password: ${DB_PASSWORD:root}
   servlet:

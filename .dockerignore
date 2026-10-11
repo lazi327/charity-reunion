@@ -1,0 +1,9 @@
+.git
+**/node_modules
+web/dist
+web/server.mjs
+server/target
+server/src/main/resources/static
+**/*.log
+.env
+.env.example

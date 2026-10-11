@@ -2,6 +2,8 @@
 web/node_modules/
 web/dist/
 server/target/
+# 由 Dockerfile 在构建时从 web/dist 生成
+server/src/main/resources/static/
 
 # 日志
 *.log

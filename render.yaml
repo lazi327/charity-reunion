@@ -1,0 +1,32 @@
+services:
+  - type: web
+    name: charity-reunion
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    plan: free
+    healthCheckPath: /
+    envVars:
+      # TiDB Cloud Serverless:Connect 页里取 Host / User / Password(用户名形如 xxx@tidbcloud)
+      - key: DB_HOST
+        sync: false
+      - key: DB_PORT
+        value: "4000"
+      - key: DB_NAME
+        value: cf_reunion
+      # TiDB Serverless 强制 TLS;换回普通 MySQL 时改成 DISABLED
+      - key: DB_SSL_MODE
+        value: REQUIRED
+      - key: DB_USERNAME
+        sync: false
+      - key: DB_PASSWORD
+        sync: false
+      - key: JWT_SECRET
+        generateValue: true
+      - key: UPLOAD_DIR
+        value: /data/upload
+    # 免费档不能挂持久磁盘;升级 starter 及以上再放开,否则重启后用户上传的图片会丢
+    # disks:
+    #   - name: upload-data
+    #     mountPath: /data/upload
+    #     size: 1
